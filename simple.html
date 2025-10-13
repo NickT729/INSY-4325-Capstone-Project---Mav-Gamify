@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MavPal Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0d12;
+            --panel: #121621;
+            --panel-2: #0f1420;
+            --text: #e5e7eb;
+            --muted: #9aa4b2;
+            --primary: #4f46e5;
+            --primary-600: #4338ca;
+            --accent: #22c55e;
+            --danger: #ef4444;
+            --border: #1f2937;
+            --ring: rgba(79,70,229,0.35);
+            --shadow: 0 8px 24px rgba(0,0,0,0.35);
+        }
+        * { box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            margin: 0; background: radial-gradient(1200px 800px at 80% -10%, rgba(79,70,229,0.15), transparent), var(--bg);
+            color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .app-header { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.2) blur(6px); background: rgba(11,13,18,0.7); border-bottom: 1px solid var(--border); }
+        .app-header .inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; }
+        .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        .brand .logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--primary), #22d3ee); display: grid; place-items: center; box-shadow: var(--shadow); }
+        .brand span { letter-spacing: 0.2px; }
+        .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 10px; cursor: pointer; transition: all .2s ease; }
+        .icon-btn:hover { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring) inset; }
+        .badge { background: var(--danger); color: white; border-radius: 999px; padding: 2px 8px; font-size: 12px; margin-left: 6px; }
+
+        .grid { display: grid; gap: 16px; }
+        .grid-2 { grid-template-columns: 1.5fr 1fr; }
+        @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+
+        .card { background: linear-gradient(180deg, var(--panel), var(--panel-2)); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); }
+        .card h2, .card h3 { margin: 0 0 10px; }
+        .muted { color: var(--muted); }
+
+        .login { text-align: center; max-width: 420px; margin: 12vh auto 0; padding: 28px; }
+        .login h1 { font-size: 28px; margin-bottom: 6px; }
+        .login .logo-lg { width: 54px; height: 54px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), #22d3ee); display: grid; place-items: center; margin: 0 auto 12px; box-shadow: var(--shadow); }
+
+        .field { text-align: left; margin-top: 10px; }
+        .label { font-size: 12px; color: var(--muted); margin-bottom: 6px; display: block; }
+        input { width: 100%; padding: 12px 14px; border-radius: 12px; background: #0e131d; border: 1px solid var(--border); color: var(--text); outline: none; transition: border .15s ease, box-shadow .15s ease; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--ring); }
+
+        .btn { appearance: none; border: none; border-radius: 12px; padding: 12px 16px; font-weight: 600; cursor: pointer; transition: transform .04s ease, background .15s ease, box-shadow .15s ease; }
+        .btn:active { transform: translateY(1px); }
+        .btn-primary { background: linear-gradient(180deg, var(--primary), var(--primary-600)); color: white; box-shadow: 0 8px 24px rgba(79,70,229,0.35); }
+        .btn-primary:hover { filter: brightness(1.05); }
+        .btn-ghost { background: #0e131d; color: var(--text); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--primary); }
+
+        .nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 8px; }
+        .nav .btn { padding: 10px 14px; }
+
+        .progress { background: #0e131d; height: 10px; border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
+        .progress-bar { background: linear-gradient(90deg, #22c55e, #16a34a); height: 100%; width: 42%; }
+
+        .leaderboard { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 900px) { .leaderboard { grid-template-columns: 1fr; } }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+        table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 12px; border: 1px solid var(--border); }
+        th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+        thead th { background: #0e131d; color: var(--muted); font-weight: 600; }
+        tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+        .quiz-option { display: block; width: 100%; margin: 8px 0; padding: 12px; background: #0e131d; border: 1px solid var(--border); color: var(--text); cursor: pointer; border-radius: 12px; transition: border .15s ease, background .15s ease; text-align: left; }
+        .quiz-option:hover { border-color: var(--primary); }
+        .correct { background: rgba(34,197,94,0.2) !important; border-color: #16a34a !important; }
+        .wrong { background: rgba(239,68,68,0.15) !important; border-color: #ef4444 !important; }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- LOGIN SCREEN -->
+        <div id="login" class="card login">
+            <div class="logo-lg">🎓</div>
+            <h1>MavPal</h1>
+            <p class="muted">Demo mode — any password accepted</p>
+            <div class="field">
+                <label class="label">University Email</label>
+                <input type="email" id="email" placeholder="you@mavs.uta.edu">
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <input type="password" id="password" placeholder="Password">
+            </div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="login()">Enter</button>
+            <div id="error" class="muted" style="color: var(--danger); margin-top: 10px;"></div>
+        </div>
+
+        <!-- MAIN APP -->
+        <div id="app" class="hidden">
+            <header class="app-header card" style="margin-bottom: 16px;">
+                <div class="inner">
+                    <div class="brand">
+                        <div class="logo"></div>
+                        <span>MavPal</span>
+                    </div>
+                    <div>
+                        <button class="icon-btn" onclick="showPage('leaderboard')">🔔 <span class="badge">3</span></button>
+                        <button class="icon-btn" onclick="logout()">Logout</button>
+                    </div>
+                </div>
+            </header>
+            <div class="card">
+                <h2>Welcome, <span id="username">Student</span>!</h2>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span class="muted">Level 3</span>
+                    <div class="progress" style="flex:1 1 auto"><div class="progress-bar"></div></div>
+                    <span id="xp">420 XP</span>
+                </div>
+            </div>
+
+            <div class="nav">
+                <button class="btn btn-ghost" onclick="showPage('dashboard')">Dashboard</button>
+                <button class="btn btn-ghost" onclick="showPage('study')">Study</button>
+                <button class="btn btn-ghost" onclick="showPage('challenges')">Challenges</button>
+                <button class="btn btn-ghost" onclick="showPage('leaderboard')">Leaderboards</button>
+            </div>
+
+            <!-- DASHBOARD -->
+            <div id="dashboard" class="page">
+                <div class="leaderboard">
+                    <div class="card">
+                        <h3>Quick Actions</h3>
+                        <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                            <button class="btn btn-primary" onclick="showPage('study')">Start Quiz</button>
+                            <button class="btn btn-ghost" onclick="showPage('challenges')">Create Challenge</button>
+                            <button class="btn btn-ghost" onclick="showPage('challenges')">Join Challenge</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3>Your Rankings</h3>
+                        <div class="grid">
+                            <div><span class="muted">Class</span><div>#7</div></div>
+                            <div><span class="muted">College</span><div>#23</div></div>
+                            <div><span class="muted">Major</span><div>#11</div></div>
+                            <div><span class="muted">Overall</span><div>#119</div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Today</h3>
+                    <ul class="muted">
+                        <li>Data Structures Quiz at 2:00 PM</li>
+                        <li>Earn 100 XP to reach Level 4</li>
+                        <li>Challenge "CS Study Sprint" ends in 3 days</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- STUDY HUB -->
+            <div id="study" class="page hidden">
+                <div class="two-col">
+                    <div class="card">
+                        <h2>Choose a Quiz</h2>
+                        <div id="quizList" style="display:grid; gap:10px;"></div>
+                    </div>
+                    <div class="card">
+                        <h2>Create a Quiz</h2>
+                        <div class="field"><label class="label">Title</label><input id="cqTitle" placeholder="e.g., Data Structures" /></div>
+                        <div class="field"><label class="label">Question</label><input id="cqQ" placeholder="Enter question text" /></div>
+                        <div class="field"><label class="label">Choice 1</label><input id="cqC1" placeholder="Option 1" /></div>
+                        <div class="field"><label class="label">Choice 2</label><input id="cqC2" placeholder="Option 2" /></div>
+                        <div class="field"><label class="label">Choice 3</label><input id="cqC3" placeholder="Option 3" /></div>
+                        <div class="field"><label class="label">Choice 4</label><input id="cqC4" placeholder="Option 4" /></div>
+                        <div class="field"><label class="label">Correct Answer</label>
+                            <select id="cqAns" style="width:100%; padding: 12px 14px; border-radius: 12px; background: #0e131d; border: 1px solid var(--border); color: var(--text);">
+                                <option value="0">1</option>
+                                <option value="1">2</option>
+                                <option value="2">3</option>
+                                <option value="3">4</option>
+                            </select>
+                        </div>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+                            <button class="btn btn-ghost" onclick="addCreatedQuestion()">Add Question</button>
+                            <button class="btn btn-primary" onclick="startCreatedQuiz()">Start Quiz</button>
+                        </div>
+                        <div class="card" style="margin-top:12px;">
+                            <h3 class="muted" style="margin:0 0 6px;">Draft Questions</h3>
+                            <ol id="cqList" style="margin:0; padding-left: 18px;"></ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QUIZ RUNNER -->
+            <div id="quiz" class="page hidden">
+                <div class="card">
+                    <h2 id="quizTitle">Quiz</h2>
+                    <p>Question <span id="qnum">1</span> of <span id="qtotal">1</span></p>
+                    <h3 id="question">Question text</h3>
+                    <button class="quiz-option" onclick="answer(0)" id="opt0">Option 1</button>
+                    <button class="quiz-option" onclick="answer(1)" id="opt1">Option 2</button>
+                    <button class="quiz-option" onclick="answer(2)" id="opt2">Option 3</button>
+                    <button class="quiz-option" onclick="answer(3)" id="opt3">Option 4</button>
+                    <div id="result" style="margin-top: 10px;"></div>
+                </div>
+            </div>
+
+            <!-- CHALLENGES -->
+            <div id="challenges" class="page hidden">
+                <div class="card">
+                    <h2>Create Challenge</h2>
+                    <input type="text" id="challengeTitle" placeholder="Challenge Title">
+                    <input type="text" id="challengeDesc" placeholder="Description">
+                    <button onclick="createChallenge()">Create + Invite</button>
+                </div>
+                <div class="card">
+                    <h2>Active Challenges</h2>
+                    <div id="challengeList">
+                        <div class="card">CS Study Sprint - Daily 30m for 7 days (60% complete)</div>
+                        <div class="card">Math Marathon - Practice 50 problems (20% complete)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEADERBOARD -->
+            <div id="leaderboard" class="page hidden">
+                <div class="card">
+                    <h2>Leaderboard</h2>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr style="background: #333;">
+                            <th style="padding: 10px;">Rank</th>
+                            <th style="padding: 10px;">Name</th>
+                            <th style="padding: 10px;">XP</th>
+                            <th style="padding: 10px;">Major</th>
+                        </tr>
+                        <tr><td>1</td><td>Manmeet</td><td>720</td><td>BA</td></tr>
+                        <tr><td>2</td><td>Sam</td><td>600</td><td>IS</td></tr>
+                        <tr style="background: #4CAF50;"><td>3</td><td>You</td><td id="currentXP">420</td><td>IS</td></tr>
+                        <tr><td>4</td><td>Alex</td><td>480</td><td>Math</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 'dashboard';
+        let currentQ = 0;
+        let score = 0;
+
+        // Quiz data model
+        let quizzes = [
+            {
+                title: 'Algorithms Basics',
+                questions: [
+                    { text: 'Big-O of binary search?', choices: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'], answer: 1 },
+                    { text: 'Which is a stable sort?', choices: ['QuickSort', 'HeapSort', 'MergeSort', 'SelectionSort'], answer: 2 },
+                    { text: 'Stack is?', choices: ['FIFO', 'LIFO', 'Random', 'Sorted'], answer: 1 },
+                ]
+            },
+            {
+                title: 'Data Structures',
+                questions: [
+                    { text: 'BST average search time?', choices: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'], answer: 1 },
+                    { text: 'Graph with cycles?', choices: ['Tree', 'DAG', 'Cyclic Graph', 'Trie'], answer: 2 },
+                    { text: 'Queue is?', choices: ['LIFO', 'FIFO', 'Random', 'Sorted'], answer: 1 },
+                ]
+            }
+        ];
+
+        let buildingQuiz = { title: '', questions: [] };
+        let currentQuiz = null;
+
+        function login() {
+            const email = document.getElementById('email').value;
+            const error = document.getElementById('error');
+            
+            if (!email.endsWith('@mavs.uta.edu')) {
+                error.textContent = 'Email must end with @mavs.uta.edu';
+                return;
+            }
+            
+            document.getElementById('login').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            document.getElementById('username').textContent = email.split('@')[0];
+        }
+
+        function logout() {
+            document.getElementById('login').classList.remove('hidden');
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('error').textContent = '';
+        }
+
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(page).classList.remove('hidden');
+            currentPage = page;
+            
+            if (page === 'study') {
+                renderQuizList();
+            }
+        }
+
+        function updateQuiz() {
+            const qs = currentQuiz.questions;
+            if (currentQ >= qs.length) {
+                document.getElementById('question').textContent = 'Quiz Complete!';
+                document.querySelectorAll('.quiz-option').forEach(btn => btn.style.display = 'none');
+                const earned = score * 50;
+                document.getElementById('result').innerHTML = `You scored ${score}/${qs.length}! Earned ${earned} XP!`;
+                document.getElementById('xp').textContent = (420 + earned) + ' XP';
+                return;
+            }
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+            document.getElementById('qnum').textContent = currentQ + 1;
+            document.getElementById('qtotal').textContent = qs.length;
+            document.getElementById('question').textContent = qs[currentQ].text;
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById('opt' + i);
+                btn.style.display = 'block';
+                btn.textContent = `${i + 1}. ${qs[currentQ].choices[i]}`;
+                btn.className = 'quiz-option';
+            }
+            document.getElementById('result').textContent = '';
+        }
+
+        function answer(choice) {
+            const correct = currentQuiz.questions[currentQ].answer;
+            const buttons = document.querySelectorAll('#quiz .quiz-option');
+            
+            buttons.forEach((btn, i) => {
+                if (i === correct) btn.classList.add('correct');
+                else if (i === choice && i !== correct) btn.classList.add('wrong');
+            });
+            
+            if (choice === correct) score++;
+            
+            setTimeout(() => {
+                currentQ++;
+                updateQuiz();
+            }, 1500);
+        }
+
+        function renderQuizList() {
+            const list = document.getElementById('quizList');
+            list.innerHTML = '';
+            quizzes.forEach((q, idx) => {
+                const row = document.createElement('div');
+                row.className = 'card';
+                row.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+                    <div>
+                        <div style="font-weight:600;">${q.title}</div>
+                        <div class="muted">${q.questions.length} questions</div>
+                    </div>
+                    <button class="btn btn-primary">Start</button>
+                </div>`;
+                row.querySelector('button').onclick = () => startQuizByIndex(idx);
+                list.appendChild(row);
+            });
+        }
+
+        function startQuizByIndex(i) {
+            currentQuiz = quizzes[i];
+            currentQ = 0; score = 0;
+            showPage('quiz');
+            updateQuiz();
+        }
+
+        function addCreatedQuestion() {
+            const title = document.getElementById('cqTitle').value.trim();
+            const q = document.getElementById('cqQ').value.trim();
+            const c1 = document.getElementById('cqC1').value.trim();
+            const c2 = document.getElementById('cqC2').value.trim();
+            const c3 = document.getElementById('cqC3').value.trim();
+            const c4 = document.getElementById('cqC4').value.trim();
+            const ans = parseInt(document.getElementById('cqAns').value, 10);
+            if (!title || !q || !c1 || !c2 || !c3 || !c4) return;
+            if (!buildingQuiz.title) buildingQuiz.title = title;
+            buildingQuiz.questions.push({ text: q, choices: [c1,c2,c3,c4], answer: ans });
+            document.getElementById('cqQ').value = '';
+            document.getElementById('cqC1').value = '';
+            document.getElementById('cqC2').value = '';
+            document.getElementById('cqC3').value = '';
+            document.getElementById('cqC4').value = '';
+            document.getElementById('cqList').innerHTML = buildingQuiz.questions.map((qq, i) => `<li>Q${i+1}: ${qq.text}</li>`).join('');
+        }
+
+        function startCreatedQuiz() {
+            if (!buildingQuiz.title || buildingQuiz.questions.length === 0) return;
+            // push into available quizzes and start
+            quizzes.unshift({ title: buildingQuiz.title, questions: buildingQuiz.questions.slice() });
+            currentQuiz = quizzes[0];
+            // reset builder
+            buildingQuiz = { title: '', questions: [] };
+            document.getElementById('cqTitle').value = '';
+            document.getElementById('cqList').innerHTML = '';
+            currentQ = 0; score = 0;
+            showPage('quiz');
+            updateQuiz();
+        }
+
+        function createChallenge() {
+            const title = document.getElementById('challengeTitle').value;
+            const desc = document.getElementById('challengeDesc').value;
+            
+            if (!title) return;
+            
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.textContent = `${title} - ${desc} (0% complete)`;
+            document.getElementById('challengeList').appendChild(div);
+            
+            document.getElementById('challengeTitle').value = '';
+            document.getElementById('challengeDesc').value = '';
+        }
+    </script>
+</body>
+</html>
