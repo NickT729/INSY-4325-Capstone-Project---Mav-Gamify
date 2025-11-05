@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.sqbpro
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +28,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Backup folders
+*-backup*
+*Copy*
