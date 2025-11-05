@@ -138,3 +138,5 @@ curl -X POST http://localhost:3001/api/auth/login \
 - ✅ Error messages don't reveal user existence
 - ✅ API errors don't bypass authentication
 
+
+

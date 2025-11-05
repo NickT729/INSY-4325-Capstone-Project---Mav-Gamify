@@ -426,3 +426,19 @@ flowchart TD
 
 This diagram shows the complete architecture of the MavPal application, with all components, types, and their relationships clearly mapped with line number references for easy navigation.
 
+---
+
+## 📝 **IMPORTANT NOTE FOR ASSIGNMENT REPORTS**
+
+**This is a JavaScript/TypeScript/React application, NOT Java.**
+
+The "class diagrams" shown here are actually **component diagrams** representing React components, which serve similar purposes to classes in object-oriented programming:
+
+- **React Components** ≈ Java Classes (encapsulate functionality)
+- **Component Props** ≈ Constructor Parameters
+- **Component State** ≈ Instance Variables
+- **Hooks (useAuth, etc.)** ≈ Methods
+- **Context Providers** ≈ Singleton Pattern
+
+For a complete assignment report with database diagrams and API structure, see **`ASSIGNMENT_REPORT_DOCUMENTATION.md`**.
+
