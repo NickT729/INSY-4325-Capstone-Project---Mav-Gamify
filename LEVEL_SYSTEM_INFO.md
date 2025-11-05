@@ -7,44 +7,53 @@
 - Start with **0 XP**
 - Must earn XP to level up
 
-## 🎯 Level System (1-20)
+## 🎯 Level System (1-20) - Fast Leveling!
 
 ### XP Requirements for Each Level:
 
-| Level | XP Required | XP for Next Level |
-|-------|-------------|-------------------|
-| 1     | 0           | 100               |
-| 2     | 100         | 150               |
-| 3     | 250         | 200               |
-| 4     | 450         | 250               |
-| 5     | 700         | 300               |
-| 6     | 1000        | 350               |
-| 7     | 1350        | 400               |
-| 8     | 1750        | 450               |
-| 9     | 2200        | 500               |
-| 10    | 2700        | 550               |
-| 11    | 3250        | 600               |
-| 12    | 3850        | 650               |
-| 13    | 4500        | 700               |
-| 14    | 5200        | 750               |
-| 15    | 5950        | 800               |
-| 16    | 6750        | 850               |
-| 17    | 7600        | 900               |
-| 18    | 8500        | 950               |
-| 19    | 9450        | 550               |
-| 20    | 10000       | MAX LEVEL         |
+| Level | XP Required | XP for Next Level | Example Activities |
+|-------|-------------|-------------------|-------------------|
+| 1     | 0           | 100               | Start here! |
+| 2     | 100         | 150               | 1-2 quizzes or 1 flashcard set |
+| 3     | 250         | 200               | 2-3 quizzes |
+| 4     | 450         | 250               | 3-4 quizzes |
+| 5     | 700         | 300               | Complete daily tasks + 1 quiz |
+| 6     | 1000        | 350               | ~2 days of daily tasks |
+| 7     | 1350        | 400               | ~2 days of daily tasks |
+| 8     | 1750        | 450               | ~2 days of daily tasks |
+| 9     | 2200        | 500               | ~2 days of daily tasks |
+| 10    | 2700        | 550               | ~3 days of daily tasks |
+| 11    | 3250        | 600               | ~3 days of daily tasks |
+| 12    | 3850        | 650               | ~4 days of daily tasks |
+| 13    | 4500        | 700               | ~4 days of daily tasks |
+| 14    | 5200        | 750               | ~5 days of daily tasks |
+| 15    | 5950        | 800               | ~6 days of daily tasks |
+| 16    | 6750        | 850               | ~6 days of daily tasks |
+| 17    | 7600        | 900               | ~7 days of daily tasks |
+| 18    | 8500        | 950               | ~8 days of daily tasks |
+| 19    | 9450        | 550               | ~9 days of daily tasks |
+| 20    | 10000       | MAX LEVEL         | ~10 days of daily tasks! |
 
-### XP Earning Rates:
+**💡 Tip:** Complete all daily tasks each day to earn **1,050 bonus XP** - that's enough to level up every 1-2 days in the early levels!
 
-- **Quiz (per question):** 25 XP
-  - 5-question quiz = 125 XP
-  - 10-question quiz = 250 XP
+### XP Earning Rates (Increased for Faster Leveling):
+
+- **Quiz (per question):** 75 XP ⬆️
+  - 5-question quiz = 375 XP
+  - 10-question quiz = 750 XP
   
-- **Flashcard (per card):** 15 XP
-  - 10-card set = 150 XP
-  - 20-card set = 300 XP
+- **Flashcard (per card):** 40 XP ⬆️
+  - 10-card set = 400 XP
+  - 20-card set = 800 XP
 
-- **Daily Challenges:** Varies by challenge
+- **Daily Challenges:** Varies by challenge (typically 200-500 XP)
+
+- **Daily Task Bonuses:**
+  - Complete 1 Quiz: +300 XP bonus
+  - Study 1 Flashcard Set: +250 XP bonus
+  - Create 1 Quiz/Flashcard: +300 XP bonus
+  - Join 1 Challenge: +200 XP bonus
+  - **Complete All Daily Tasks:** Earn all bonus XP (1,050 XP total per day!)
 
 ## 🔄 How Level Updates Work
 
@@ -88,6 +97,7 @@ This will:
 - **Maximum Level:** 20
 - **XP Cap:** 10,000 XP
 - **After Level 20:** Users stay at Level 20, but can continue earning XP
+
 
 
 
